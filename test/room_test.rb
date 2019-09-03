@@ -12,8 +12,8 @@ describe "Room" do
     end
     
     it "can keep track of reservations" do
-      reservation_1 = Reservation.new(34, @new_room, start_date: Date.new(2019-10-3), end_date: Date.new(2019-10-6))
-      reservation_2 = Reservation.new(34, @new_room, start_date: Date.new(2019-10-7), end_date: Date.new(2019-10-12))
+      reservation_1 = Reservation.new(id: 34, room: 3, start_date: Date.new(2019-10-3), end_date: Date.new(2019-10-6))
+      reservation_2 = Reservation.new(id: 34, room: 4, start_date: Date.new(2019-10-7), end_date: Date.new(2019-10-12))
       
       expect(@new_room.reservations.length).must_equal 2
     end
