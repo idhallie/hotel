@@ -22,12 +22,17 @@ describe "Reservation" do
     end
     
     it "requires an integer ID" do
-      expect { Reservation.new("Not an integer", @room1, start_date: Date.new(2019-10-3), end_date: Date.new(2019-10-6))
+      expect { Reservation.new("Not an integer", @room_1, start_date: Date.new(2019-10-3), end_date: Date.new(2019-10-6))
       }.must_raise ArgumentError
     end
     
-    # start_date must be an instance of Date
-    # end_date must be an instance of Date
+    it "requires that start_date must be an instance of Date class" do
+      expect(@new_reservation.start_date).must_be_kind_of Date
+    end
+    
+    it "requires that end_date must be an instance of Date class" do
+      expect(@new_reservation.start_date).must_be_kind_of Date
+    end
   end
   
   # describe "#initialize validation" do

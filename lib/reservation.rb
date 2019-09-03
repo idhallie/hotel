@@ -1,3 +1,5 @@
+require 'date'
+
 class Reservation
   attr_reader :id, :room, :start_date, :end_date, :dates_booked
   

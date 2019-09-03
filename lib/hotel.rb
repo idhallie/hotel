@@ -1,3 +1,4 @@
+require 'date'
 require 'pry'
 
 class Hotel
@@ -14,12 +15,14 @@ class Hotel
   
   def find_available_room(start_date, end_date)
     
-    #return id (room_num)
+    #return room instance
   end
   
   def make_reservation(start_date, end_date)
     # room = find_available_room(start_date, end_date)
     reservation_id = @reservations.length + 1
     new_reservation = Reservation.new(reservation_id, room, start_date: start_date, end_date: end_date)
+    # reservations << new_reservation
+    # room.add_reservation(new_reservation)
   end
 end

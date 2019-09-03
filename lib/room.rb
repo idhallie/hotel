@@ -1,3 +1,5 @@
+require 'date'
+
 class Room
   attr_reader :id, :reservations, :room_cost, :dates_booked
   
