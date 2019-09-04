@@ -36,7 +36,7 @@ describe "Hotel" do
     
     it "books a room if the dates_booked array is empty" do
       room = @new_hotel.rooms.first
-      expect(@new_hotel.find_available_room(Date.new(2019-10-7), Date.new(2019-10-12))).must_equal room
+      expect(@new_hotel.find_available_room(Date.new(2019, 10, 7), Date.new(2019, 10, 12))).must_equal room
     end
     
   end

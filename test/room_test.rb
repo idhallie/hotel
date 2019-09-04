@@ -1,4 +1,5 @@
 require_relative 'test_helper'
+require 'date'
 
 describe "Room" do
   describe "#initialize" do
@@ -29,7 +30,10 @@ describe "Room" do
     end
     
     it "keeps track of individual dates booked" do
-      
+      reservation_1 = Reservation.new(id: 34, room: 3, start_date: Date.new(2019, 10, 03), end_date: Date.new(2019, 10, 06))
+      @new_room.add_dates(reservation_1)
+      expect(@new_room.dates_booked.length).must_equal 3
     end
   end
 end
+

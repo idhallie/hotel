@@ -27,5 +27,6 @@ class Hotel
     new_reservation = Reservation.new(reservation_id, room, start_date: start_date, end_date: end_date)
     # reservations << new_reservation
     # room.add_reservation(new_reservation)
+    # room.add_dates(new_reservation)
   end
 end
