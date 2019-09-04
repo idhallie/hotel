@@ -9,13 +9,16 @@ class Hotel
     @reservations = []
     
     20.times do |i|
-      @rooms << (i+1).to_i
+      @rooms << Room.new((i+1).to_i)
     end
   end
   
   def find_available_room(start_date, end_date)
-    
-    #return room instance
+    @rooms.each do |room|
+      if room.dates_booked.length == 0
+        return room
+      end
+    end
   end
   
   def make_reservation(start_date, end_date)
