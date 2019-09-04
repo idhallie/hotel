@@ -38,7 +38,24 @@ describe "Hotel" do
       room = @new_hotel.rooms.first
       expect(@new_hotel.find_available_room(Date.new(2019, 10, 7), Date.new(2019, 10, 12))).must_equal room
     end
+  end
+  
+  describe "room_list" do
+    before do
+      @new_hotel = Hotel.new()
+    end
     
+    it "will display a list of all rooms" do
+      expect(@new_hotel.room_list.length).must_equal 20
+    end
+    
+    it "includes the first room" do
+      expect(@new_hotel.room_list.first.id).must_equal 1
+    end
+    
+    it "includes the last room" do
+      expect(@new_hotel.room_list.last.id).must_equal 20
+    end
   end
 end
 
