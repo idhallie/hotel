@@ -13,7 +13,11 @@ class Hotel
     end
   end
   
-  def find_available_room(start_date, end_date)
+  def find_available_rooms(start_date:, end_date:)
+    unless start_date.instance_of?(Date) && end_date.instance_of?(Date)
+      raise ArgumentError.new("Dates must be entered as a date (ex. yyyy, mm, dd. Got start date: #{start_date} and end_date: #{end_date}.")
+    end
+    
     rooms.each do |room|
       if room.dates_booked.length == 0
         return room
