@@ -43,5 +43,11 @@ describe "Reservation" do
       expect { Reservation.new(id: @id, room: @room_1, start_date: Date.new(2019, 10, 03), end_date: "blorb")
       }.must_raise ArgumentError
     end
+    
+    # it "keeps track of individual dates booked" do
+    #   #reservation_1 = Reservation.new(id: 34, room: 3, start_date: Date.new(2019, 10, 03), end_date: Date.new(2019, 10, 06))
+    
+    #   expect(@new_reservation.dates_booked.length).must_equal 3
+    # end
   end
 end

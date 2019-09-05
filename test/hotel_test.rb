@@ -1,4 +1,5 @@
 require_relative 'test_helper'
+require 'date'
 
 describe "Hotel" do
   describe "#initialize" do
@@ -38,6 +39,10 @@ describe "Hotel" do
       room = @new_hotel.rooms.first
       expect(@new_hotel.find_available_room(Date.new(2019, 10, 7), Date.new(2019, 10, 12))).must_equal room
     end
+    
+    # it "books the first available room" do
+    
+    # end
   end
   
   describe "room_list" do
@@ -57,5 +62,45 @@ describe "Hotel" do
       expect(@new_hotel.room_list.last.id).must_equal 20
     end
   end
-end
-
+  
+  describe "make_reservation" do
+    before do
+      @new_hotel = Hotel.new()
+      @reservation_1 = @new_hotel.make_reservation(start_date: Date.new(2010, 10, 01), end_date: Date.new(2010, 10, 04))
+    end
+    
+    it "adds new reservation to @reservation instance variable (array)" do
+      expect(@new_hotel.reservations.last).must_equal @reservation_1
+    end
+    
+    it "creates an instance of Reservation" do
+      expect(@reservation_1).must_be_kind_of Reservation
+    end
+  end
+  
+  describe "reservations_by_date" do
+    before do
+      @new_hotel = Hotel.new()
+      @new_hotel.make_reservation(start_date: Date.new(2010, 10, 01), end_date: Date.new(2010, 10, 04))
+      @new_hotel.make_reservation(start_date: Date.new(2010, 9, 30), end_date: Date.new(2010, 10, 02))
+      @new_hotel.make_reservation(start_date: Date.new(2010, 9, 30), end_date: Date.new(2010, 10, 06))
+      @new_hotel.make_reservation(start_date: Date.new(2010, 10, 02), end_date: Date.new(2010, 10, 05))
+    end
+    
+    it "can track the correct number of reservations for a date" do
+      search = @new_hotel.reservations_by_date(Date.new(2010, 10, 02))
+      
+      expect(search.length).must_equal 3
+    end
+    
+    it "returns an array" do
+      expect(@new_hotel.reservations_by_date(Date.new(2010, 10, 02))).must_be_kind_of Array
+    end
+    
+    it "returns an empty array if nothing is found" do
+      search = @new_hotel.reservations_by_date(Date.new(2010, 10, 30))
+      
+      expect(search.length).must_equal 0
+    end
+  end
+end  
