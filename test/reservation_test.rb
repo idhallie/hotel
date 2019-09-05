@@ -44,10 +44,17 @@ describe "Reservation" do
       }.must_raise ArgumentError
     end
     
-    # it "keeps track of individual dates booked" do
-    #   #reservation_1 = Reservation.new(id: 34, room: 3, start_date: Date.new(2019, 10, 03), end_date: Date.new(2019, 10, 06))
-    
-    #   expect(@new_reservation.dates_booked.length).must_equal 3
-    # end
+    it "raises an error if id is not an integer" do
+      expect { Reservation.new(id: "whoops", room: @room_1, start_date: Date.new(2019, 10, 03), end_date: Date.new(2019, 10, 06))
+      }.must_raise ArgumentError
+    end
+  end
+  
+  describe "total_cost" do
+    it "calculates total cost of the reservation" do
+      @new_reservation = Reservation.new(id: 1, room: @room_1, start_date: Date.new(2019, 10, 03), end_date: Date.new(2019, 10, 06))
+      
+      expect(@new_reservation.total_cost).must_equal 600
+    end
   end
 end
