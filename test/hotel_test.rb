@@ -20,36 +20,36 @@ describe "Hotel" do
     end
   end 
   
-  describe "find_available_rooms" do
-    before do
-      @new_hotel = Hotel.new()
-      @search = @new_hotel.find_available_rooms(Date.new(2019-10-3), Date.new(2019-10-6))
-    end
-    
-    it "returns an array" do
-      expect(@search).must_be_kind_of Array
-    end
-    
-    it "raises an error if start_date is not a Date" do
-      expect { @new_hotel.find_available_rooms("blerg", Date.new(2019, 10, 06))
-      }.must_raise ArgumentError
-    end
-    
-    it "raises an error if end_date is not a Date" do
-      expect { @new_hotel.find_available_rooms(Date.new(2019, 10, 03), "blorb")
-      }.must_raise ArgumentError
-    end
-    
-    it "returns available rooms" do
-      new_hotel.make_reservation(Date.new(2010, 10, 01), Date.new(2010, 10, 04))
-      new_hotel.make_reservation(Date.new(2010, 9, 30), Date.new(2010, 10, 02))
-      new_hotel.make_reservation(Date.new(2010, 9, 30), Date.new(2010, 10, 06))
-      new_hotel.make_reservation(Date.new(2010, 10, 02), Date.new(2010, 10, 05))
-      search2 = new_hotel.find_available_rooms(Date.new(2010, 10, 02), Date.new(2010, 10, 03))
-      
-      expect(search2.length).must_equal 17
-    end
-  end
+  # describe "find_available_rooms" do
+  #   before do
+  #     @new_hotel = Hotel.new()
+  #     @search = @new_hotel.find_available_rooms(start_date: Date.new(2019-10-3), end_date: Date.new(2019-10-6))
+  #   end
+  
+  #   it "returns an array" do
+  #     expect(@search).must_be_kind_of Array
+  #   end
+  
+  #   it "raises an error if start_date is not a Date" do
+  #     expect { @new_hotel.find_available_rooms(start_date: "blerg", end_date: Date.new(2019, 10, 06))
+  #     }.must_raise ArgumentError
+  #   end
+  
+  #   it "raises an error if end_date is not a Date" do
+  #     expect { @new_hotel.find_available_rooms(start_date: Date.new(2019, 10, 03), end_date: "blorb")
+  #     }.must_raise ArgumentError
+  #   end
+  
+  #   it "returns available rooms" do
+  #     new_hotel.make_reservation(start_date: Date.new(2010, 10, 01), end_date: Date.new(2010, 10, 04))
+  #     new_hotel.make_reservation(start_date: Date.new(2010, 9, 30), end_date: Date.new(2010, 10, 02))
+  #     new_hotel.make_reservation(start_date: Date.new(2010, 9, 30), end_date: Date.new(2010, 10, 06))
+  #     new_hotel.make_reservation(start_date: Date.new(2010, 10, 02), end_date: Date.new(2010, 10, 05))
+  #     search2 = new_hotel.find_available_rooms(start_date: Date.new(2010, 10, 02), end_date: Date.new(2010, 10, 03))
+  
+  #     expect(search2.length).must_equal 17
+  #   end
+  # end
   
   describe "room_list" do
     before do
@@ -87,10 +87,10 @@ describe "Hotel" do
   describe "reservations_by_date" do
     before do
       @new_hotel = Hotel.new()
-      @new_hotel.make_reservation(Date.new(2010, 10, 01), Date.new(2010, 10, 04))
-      @new_hotel.make_reservation(Date.new(2010, 9, 30), Date.new(2010, 10, 02))
-      @new_hotel.make_reservation(Date.new(2010, 9, 30), Date.new(2010, 10, 06))
-      @new_hotel.make_reservation(Date.new(2010, 10, 02), Date.new(2010, 10, 05))
+      @new_hotel.make_reservation(start_date: Date.new(2010, 10, 01), end_date: Date.new(2010, 10, 04))
+      @new_hotel.make_reservation(start_date: Date.new(2010, 9, 30), end_date: Date.new(2010, 10, 02))
+      @new_hotel.make_reservation(start_date: Date.new(2010, 9, 30), end_date: Date.new(2010, 10, 06))
+      @new_hotel.make_reservation(start_date: Date.new(2010, 10, 02), end_date: Date.new(2010, 10, 05))
     end
     
     it "can track the correct number of reservations for a date" do
