@@ -9,7 +9,7 @@ class Hotel
     @reservations = reservations
     
     20.times do |i|
-      rooms << Room.new((i+1).to_i)
+      rooms << Room.new(id:(i+1).to_i)
     end
   end
   

@@ -12,9 +12,9 @@ class Reservation
       raise ArgumentError.new("ID must be a positive integer (got #{id}).")
     end
     
-    def total_cost
-      return (date_range.end_date - date_range.start_date) * 200
-    end
   end
   
+  def total_cost
+    return (date_range.end_date - date_range.start_date) * 200
+  end
 end

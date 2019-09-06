@@ -4,7 +4,7 @@ describe "Reservation" do
   describe "#initialize" do
     before do
       @id = 1
-      @room_1 = Room.new(2)
+      @room_1 = Room.new(id: 2)
       @booked_dates = DateRange.new(start_date: Date.new(2019, 10, 03), end_date: Date.new(2019, 10, 06))
       @new_reservation = Reservation.new(id: @id, room: @room_1, date_range: @booked_dates)
     end
@@ -26,11 +26,18 @@ describe "Reservation" do
       expect { Reservation.new(id: "Not an integer", room: @room_1, date_range: @booked_dates)
       }.must_raise ArgumentError
     end
+  end
+  
+  describe "total_cost" do
+    before do
+      @id = 1
+      @room_1 = Room.new(id: 2)
+      @booked_dates = DateRange.new(start_date: Date.new(2019, 10, 03), end_date: Date.new(2019, 10, 06))
+      @new_reservation = Reservation.new(id: @id, room: @room_1, date_range: @booked_dates)
+    end
     
-    describe "total_cost" do
-      it "calculates total cost of the reservation" do
-        expect(@new_reservation.total_cost).must_equal 600
-      end
+    it "calculates total cost of the reservation" do
+      expect(@new_reservation.total_cost).must_equal 600
     end
   end
 end

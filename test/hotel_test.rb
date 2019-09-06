@@ -82,7 +82,18 @@ describe "Hotel" do
     it "creates an instance of Reservation" do
       expect(@reservation_1).must_be_kind_of Reservation
     end
+    
+    it "raises an error if start_date is not a Date" do
+      expect { DateRange.new(start_date: "blerg", end_date: Date.new(2019, 10, 06))
+      }.must_raise ArgumentError
+    end
+    
+    it "raises an error if end_date is not a Date" do
+      expect { DateRange.new(start_date: Date.new(2019, 10, 03), end_date: "blorb")
+      }.must_raise ArgumentError
+    end
   end
+  
   
   describe "reservations_by_date" do
     before do
