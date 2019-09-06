@@ -2,11 +2,12 @@ require 'date'
 require 'pry'
 
 class Room
-  attr_reader :id, :reservations, :room_cost
+  attr_reader :id, :reservations, :date_range
   
-  def initialize(id:, reservations: [])
+  def initialize(id:, reservations: [], date_range: nil)
     @id = id
     @reservations = reservations
+    @date_range = date_range
     
     unless id.instance_of?(Integer) && id > 0
       raise ArgumentError.new("ID must be a positive integer (got #{id}).")
