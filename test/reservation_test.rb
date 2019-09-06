@@ -5,8 +5,8 @@ describe "Reservation" do
     before do
       @id = 1
       @room_1 = Room.new(id: 2)
-      @booked_dates = DateRange.new(start_date: Date.new(2019, 10, 03), end_date: Date.new(2019, 10, 06))
-      @new_reservation = Reservation.new(id: @id, room: @room_1, date_range: @booked_dates)
+      #@booked_dates = DateRange.new(start_date: Date.new(2019, 10, 03), end_date: Date.new(2019, 10, 06))
+      @new_reservation = Reservation.new(id: @id, room: @room_1, start_date: Date.new(2019, 10, 03), end_date: Date.new(2019, 10, 06))
     end
     
     it "is an instance of Reservation" do
@@ -23,7 +23,7 @@ describe "Reservation" do
     end
     
     it "requires an integer ID" do
-      expect { Reservation.new(id: "Not an integer", room: @room_1, date_range: @booked_dates)
+      expect { Reservation.new(id: "Not an integer", room: @room_1, start_date: Date.new(2019, 10, 03), end_date: Date.new(2019, 10, 06))
       }.must_raise ArgumentError
     end
   end
@@ -33,7 +33,7 @@ describe "Reservation" do
       @id = 1
       @room_1 = Room.new(id: 2)
       @booked_dates = DateRange.new(start_date: Date.new(2019, 10, 03), end_date: Date.new(2019, 10, 06))
-      @new_reservation = Reservation.new(id: @id, room: @room_1, date_range: @booked_dates)
+      @new_reservation = Reservation.new(id: @id, room: @room_1, start_date: Date.new(2019, 10, 03), end_date: Date.new(2019, 10, 06))
     end
     
     it "calculates total cost of the reservation" do
