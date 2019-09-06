@@ -29,5 +29,11 @@ describe "Room" do
       }.must_raise ArgumentError
     end
   end
+  
+  describe "available" do
+    it "returns true if there are no other dates booked" do
+    end
+    
+  end
 end
 

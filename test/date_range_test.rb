@@ -62,8 +62,18 @@ describe "DateRange" do
     it "returns false for a date starting on the end date" do
       expect(@test_date.date_conflict(comp_start_date: Date.new(2019, 10, 6), comp_end_date: Date.new(2019, 10, 10))).must_equal false
     end
-
-    # Check for a date that doesn't conflict all
+    
+    it "returns false for a date starting on the end date" do
+      expect(@test_date.date_conflict(comp_start_date: Date.new(2019, 10, 6), comp_end_date: Date.new(2019, 10, 10))).must_equal false
+    end
+    
+    it "returns false for a date starting on the end date" do
+      expect(@test_date.date_conflict(comp_start_date: Date.new(2019, 9, 20), comp_end_date: Date.new(2019, 9, 25))).must_equal false
+    end
+    
+    it "returns false for a date starting on the end date" do
+      expect(@test_date.date_conflict(comp_start_date: Date.new(2019, 10, 10), comp_end_date: Date.new(2019, 10, 15))).must_equal false
+    end
   end
 end
 

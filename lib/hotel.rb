@@ -19,24 +19,27 @@ class Hotel
     end
     
     available_rooms = []
+    # book a room that has no other reservations
     
-    # rooms.each do |room|
-    #   if 
-    #     available_rooms << room
-    #     #elsif 
-    #   end
-    #   end
+    rooms.each do |room|
+      if room.available(start_date: start_date, end_date: end_date) != nil
+        available_rooms << room
+      end
+    end
     
-    #   return available_rooms
+    if available_rooms.length == 0
+      raise ArgumentError.new("There are no available rooms for this date.")
+    else
+      return available_rooms
+    end
   end
   
   def make_reservation(start_date:, end_date:)
-    # room = find_available_room(start_date: start_date, end_date: end_date)
+    avail_rooms = find_available_rooms(start_date: start_date, end_date: end_date)
     reservation_id = reservations.length + 1
-    new_reservation = Reservation.new(id: reservation_id, start_date: start_date, end_date: end_date)
+    new_reservation = Reservation.new(id: reservation_id, room: avail_rooms.first, start_date: start_date, end_date: end_date)
     reservations << new_reservation
-    #room.add_reservation(new_reservation)
-    #room.add_dates(new_reservation)
+    avail_rooms.first.add_reservation(new_reservation)
     
     return new_reservation
   end
