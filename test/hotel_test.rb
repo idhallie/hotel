@@ -140,17 +140,19 @@ describe "Hotel" do
     end
     
     it "will raise an exception if one or more rooms is unavailable for the date range." do 
+      hotel_one = Hotel.new()
+      
       17.times do
-        @new_hotel.make_reservation(start_date: Date.new(2010, 10, 2), end_date: Date.new(2010, 10, 4))
+        hotel_one.make_reservation(start_date: Date.new(2019, 10, 2), end_date: Date.new(2019, 10, 4))
       end
       
-      expect { @new_hotel.make_block(start_date: Date.new(2019, 10, 3), end_date: Date.new(2019, 10, 5), num_rooms: 5, discount: 0.1)
+      expect { hotel_one.make_block(start_date: Date.new(2019, 10, 2), end_date: Date.new(2019, 10, 4), num_rooms: 5, discount: 0.1)
       }.must_raise ArgumentError
     end
     
-    it "cannot reserve a room for a specific date that is held for a block" do
-      # Available rooms array does not include...
-    end
+    # it "cannot reserve a room for a specific date that is held for a block" do
+    #   # Available rooms array does not include...
+    # end
     
     it "raises an error if the user tries to reserve more than 5 rooms" do
       expect { @new_hotel.make_block(start_date: Date.new(2019, 10, 3), end_date: Date.new(2019, 10, 5), num_rooms: 6, discount: 0.1)

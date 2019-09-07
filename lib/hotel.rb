@@ -46,9 +46,9 @@ class Hotel
   end
   
   def make_block(start_date:, end_date:, num_rooms:, discount:)
-    avail_rooms = find_available_rooms(start_date: start_date, end_date: end_date) 
+    block_avail_rooms = find_available_rooms(start_date: start_date, end_date: end_date) 
     
-    if avail_rooms.length < num_rooms
+    if block_avail_rooms.length < num_rooms
       raise ArgumentError.new("There are not enough rooms available for this block reservation.")
     end 
     
@@ -60,11 +60,11 @@ class Hotel
     
     num_rooms.times do |count|
       reservation_id = reservations.length + 1
-      block_reservation = Reservation.new(id: reservation_id, room: avail_rooms[count], start_date: start_date, end_date: end_date, discount: discount, block_res_taken: false)
+      block_reservation = Reservation.new(id: reservation_id, room: block_avail_rooms[count], start_date: start_date, end_date: end_date, discount: discount, block_res_taken: false)
       block_res_array << block_reservation
       reservations << block_reservation
       
-      avail_rooms[count].add_reservation(block_reservation)
+      block_avail_rooms[count].add_reservation(block_reservation)
     end
     
     block_id = blocks.length + 1

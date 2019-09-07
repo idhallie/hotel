@@ -26,8 +26,9 @@ class Room
       if reservation.date_range.date_conflict(comp_start_date: start_date, comp_end_date: end_date) == false
         return true
       end
-      
-      return false
     end
+    
+    return false
   end
 end
+
