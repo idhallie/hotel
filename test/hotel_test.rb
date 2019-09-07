@@ -141,10 +141,10 @@ describe "Hotel" do
     
     it "will raise an exception if one or more rooms is unavailable for the date range." do 
       17.times do
-        new_hotel2.make_reservation(start_date: Date.new(2010, 10, 2), end_date: Date.new(2010, 10, 4))
+        @new_hotel.make_reservation(start_date: Date.new(2010, 10, 2), end_date: Date.new(2010, 10, 4))
       end
       
-      expect { new_hotel2.make_block(start_date: Date.new(2019, 10, 3), end_date: Date.new(2019, 10, 5), num_rooms: 5, discount: 0.1)
+      expect { @new_hotel.make_block(start_date: Date.new(2019, 10, 3), end_date: Date.new(2019, 10, 5), num_rooms: 5, discount: 0.1)
       }.must_raise ArgumentError
     end
     

@@ -23,7 +23,7 @@ class Hotel
     # book a room that has no other reservations
     
     rooms.each do |room|
-      if room.available(start_date: start_date, end_date: end_date) != nil
+      if room.available(start_date: start_date, end_date: end_date) == true
         available_rooms << room
       end
     end
@@ -52,6 +52,10 @@ class Hotel
       raise ArgumentError.new("There are not enough rooms available for this block reservation.")
     end 
     
+    if num_rooms > 5
+      raise ArgumentError.new("The maximum number of rooms allowed in a block is 5. Number entered: #{num_rooms}.")
+    end
+    
     block_res_array = []
     
     num_rooms.times do |count|
@@ -63,7 +67,6 @@ class Hotel
       avail_rooms[count].add_reservation(block_reservation)
     end
     
-    # reservations += block_res_array
     block_id = blocks.length + 1
     
     new_block = Block.new(id: block_id, reservations: block_res_array)

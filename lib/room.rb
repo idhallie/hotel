@@ -27,7 +27,7 @@ class Room
         return true
       end
       
-      return nil
+      return false
     end
   end
 end
