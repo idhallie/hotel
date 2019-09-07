@@ -150,9 +150,17 @@ describe "Hotel" do
       }.must_raise ArgumentError
     end
     
-    # it "cannot reserve a room for a specific date that is held for a block" do
-    #   # Available rooms array does not include...
-    # end
+    it "cannot reserve a room for a specific date that is held for a block" do
+      block_rooms = []
+      @new_block.reservations.each do |reservation|
+        block_rooms << reservation.room
+      end
+      
+      available_rooms = @new_hotel.find_available_rooms(start_date:Date.new(2019, 10, 3), end_date: Date.new(2019, 10, 5))
+      array_comparison = block_rooms.all? { |room| available_rooms.include?(room) }
+      
+      expect(array_comparison).must_equal false
+    end
     
     it "raises an error if the user tries to reserve more than 5 rooms" do
       expect { @new_hotel.make_block(start_date: Date.new(2019, 10, 3), end_date: Date.new(2019, 10, 5), num_rooms: 6, discount: 0.1)

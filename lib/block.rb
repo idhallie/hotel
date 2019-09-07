@@ -28,8 +28,6 @@ class Block
   def book_it
     bookable_rooms = rooms_available
     
-    
-    
     bookable_rooms.first.change_block_status
     
     return bookable_rooms.first
