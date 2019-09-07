@@ -25,7 +25,7 @@ describe "Room" do
     end
     
     it "requires an integer ID" do
-      expect { Room.new("Not an integer")
+      expect { Room.new(id: "Not an integer")
       }.must_raise ArgumentError
     end
   end

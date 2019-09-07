@@ -21,5 +21,16 @@ describe "Block" do
     
   end
   
+  describe "rooms available" do
+    before do
+      @new_hotel = Hotel.new()
+      @new_block = @new_hotel.make_block(start_date: Date.new(2019, 10, 3), end_date: Date.new(2019, 10, 5), num_rooms: 5, discount: 0.1)
+    end
+    
+    it "returns an array" do
+      expect(@new_block.rooms_available).must_be_kind_of Array
+    end
+    
+  end
   
 end
