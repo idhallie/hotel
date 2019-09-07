@@ -17,10 +17,6 @@ class DateRange
       return true
     elsif comp_start_date <= start_date && comp_end_date >= end_date
       return true
-      # elsif comp_end_date <= start_date
-      #   return false
-      # elsif comp_start_date >= end_date
-      #   return false
     end
     return false
   end

@@ -128,4 +128,38 @@ describe "Hotel" do
       expect(search.length).must_equal 0
     end
   end
-end  
+  
+  describe "make_block" do
+    before do
+      @new_hotel = Hotel.new()
+      @new_block = @new_hotel.make_block(start_date: Date.new(2019, 10, 3), end_date: Date.new(2019, 10, 5), num_rooms: 5, discount: 0.1)
+    end
+    
+    it "is an instance of Block" do
+      expect(@new_block).must_be_kind_of Block
+    end
+    
+    it "will raise an exception if one or more rooms is unavailable for the date range." do 
+      17.times do
+        new_hotel2.make_reservation(start_date: Date.new(2010, 10, 2), end_date: Date.new(2010, 10, 4))
+      end
+      
+      expect { new_hotel2.make_block(start_date: Date.new(2019, 10, 3), end_date: Date.new(2019, 10, 5), num_rooms: 5, discount: 0.1)
+      }.must_raise ArgumentError
+    end
+    
+    it "cannot reserve a room for a specific date that is held for a block" do
+      # Available rooms array does not include...
+    end
+    
+    it "raises an error if the user tries to reserve more than 5 rooms" do
+      expect { @new_hotel.make_block(start_date: Date.new(2019, 10, 3), end_date: Date.new(2019, 10, 5), num_rooms: 6, discount: 0.1)
+      }.must_raise ArgumentError
+    end
+    
+    # I can check whether a given block has any rooms available
+    # I can reserve a specific room from a hotel block
+    # I can only reserve that room from a hotel block for the full duration of the block
+    # I can see a reservation made from a hotel block from the list of reservations for that date (see wave 1 requirements)
+  end
+end
