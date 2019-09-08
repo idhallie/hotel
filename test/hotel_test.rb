@@ -106,26 +106,33 @@ describe "Hotel" do
   describe "reservations_by_date" do
     before do
       @new_hotel = Hotel.new()
-      @new_hotel.make_reservation(start_date: Date.new(2010, 10, 01), end_date: Date.new(2010, 10, 04))
-      @new_hotel.make_reservation(start_date: Date.new(2010, 9, 30), end_date: Date.new(2010, 10, 02))
-      @new_hotel.make_reservation(start_date: Date.new(2010, 9, 30), end_date: Date.new(2010, 10, 06))
-      @new_hotel.make_reservation(start_date: Date.new(2010, 10, 02), end_date: Date.new(2010, 10, 05))
+      @new_hotel.make_reservation(start_date: Date.new(2019, 10, 01), end_date: Date.new(2019, 10, 04))
+      @new_hotel.make_reservation(start_date: Date.new(2019, 9, 30), end_date: Date.new(2019, 10, 02))
+      @new_hotel.make_reservation(start_date: Date.new(2019, 9, 30), end_date: Date.new(2019, 10, 06))
+      @new_hotel.make_reservation(start_date: Date.new(2019, 10, 02), end_date: Date.new(2019, 10, 05))
     end
     
     it "can track the correct number of reservations for a date" do
-      search = @new_hotel.reservations_by_date(Date.new(2010, 10, 02))
+      search = @new_hotel.reservations_by_date(Date.new(2019, 10, 02))
       
       expect(search.length).must_equal 3
     end
     
     it "returns an array" do
-      expect(@new_hotel.reservations_by_date(Date.new(2010, 10, 02))).must_be_kind_of Array
+      expect(@new_hotel.reservations_by_date(Date.new(2019, 10, 02))).must_be_kind_of Array
     end
     
     it "returns an empty array if nothing is found" do
-      search = @new_hotel.reservations_by_date(Date.new(2010, 10, 30))
+      search = @new_hotel.reservations_by_date(Date.new(2019, 10, 30))
       
       expect(search.length).must_equal 0
+    end
+    
+    it "displays resevations held for a block in the list of reservations for a given date." do
+      @new_block = @new_hotel.make_block(start_date: Date.new(2019, 10, 1), end_date: Date.new(2019, 10, 5), num_rooms: 5, discount: 0.1)
+      search = @new_hotel.reservations_by_date(Date.new(2019, 10, 02))
+      
+      expect(search.length).must_equal 8
     end
   end
   
@@ -166,10 +173,5 @@ describe "Hotel" do
       expect { @new_hotel.make_block(start_date: Date.new(2019, 10, 3), end_date: Date.new(2019, 10, 5), num_rooms: 6, discount: 0.1)
       }.must_raise ArgumentError
     end
-    
-    # I can check whether a given block has any rooms available
-    # I can reserve a specific room from a hotel block
-    # I can only reserve that room from a hotel block for the full duration of the block
-    # I can see a reservation made from a hotel block from the list of reservations for that date (see wave 1 requirements)
   end
 end
