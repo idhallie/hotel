@@ -17,6 +17,9 @@ class Reservation
       raise ArgumentError.new("ID must be a positive integer (got #{id}).")
     end
     
+    unless discount.instance_of?(Float) && (discount >= 0 && discount <=1)
+      raise ArgumentError.new("Discount must be a positive integer (got #{discount}).")
+    end
   end
   
   def total_cost

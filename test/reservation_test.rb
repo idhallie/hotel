@@ -5,7 +5,6 @@ describe "Reservation" do
     before do
       @id = 1
       @room_1 = Room.new(id: 2)
-      #@booked_dates = DateRange.new(start_date: Date.new(2019, 10, 03), end_date: Date.new(2019, 10, 06))
       @new_reservation = Reservation.new(id: @id, room: @room_1, start_date: Date.new(2019, 10, 03), end_date: Date.new(2019, 10, 06))
     end
     
@@ -26,6 +25,30 @@ describe "Reservation" do
       expect { Reservation.new(id: "Not an integer", room: @room_1, start_date: Date.new(2019, 10, 03), end_date: Date.new(2019, 10, 06))
       }.must_raise ArgumentError
     end
+    
+    it "raises an exception if start_date is not in date format" do
+      expect { Reservation.new(id: 1, room: @room_1, start_date: "blerg", end_date: Date.new(2019, 10, 06)) 
+      }.must_raise ArgumentError
+    end
+    
+    it "raises an exception if end_date is not in date format" do
+      expect { Reservation.new(id: 1, room: @room_1, start_date: Date.new(2019, 10, 03), end_date: "blorg")
+      }.must_raise ArgumentError
+    end
+    
+    it "raises an error if discount is a negative number" do
+      expect { @new_reservation = Reservation.new(id: @id, room: @room_1, start_date: Date.new(2019, 10, 03), end_date: Date.new(2019, 10, 06), discount: -1.1)
+      }.must_raise ArgumentError
+    end
+    
+    it "raises an error if discount is greater than 1" do
+      expect { @new_reservation = Reservation.new(id: @id, room: @room_1, start_date: Date.new(2019, 10, 03), end_date: Date.new(2019, 10, 06), discount: 1.1)
+      }.must_raise ArgumentError
+    end
+    
+    # it "will accept a discount of 1 (free room)" do
+    #   @new_reservation = Reservation.new(id: @id, room: @room_1, start_date: Date.new(2019, 10, 03), end_date: Date.new(2019, 10, 06), discount: 1.1)
+    # end
   end
   
   describe "total_cost" do
@@ -38,6 +61,12 @@ describe "Reservation" do
     
     it "calculates total cost of the reservation" do
       expect(@new_reservation.total_cost).must_equal 600
+    end
+    
+    it "correctly calculates a block discount" do
+      reservation2 = Reservation.new(id: @id, room: @room_1, start_date: Date.new(2019, 10, 03), end_date: Date.new(2019, 10, 06), discount: 0.2)
+      
+      expect(reservation2.total_cost).must_equal 480
     end
   end
 end
