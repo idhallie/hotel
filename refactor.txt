@@ -1,0 +1,5 @@
+Currently, block.rb contains similar functionality that exists in hotel.rb. 
+- In block.rb, rooms_available looks within the block and identifies the reservations that have not been claimed and returns an array of 
+  reservation instances.
+- In hotel.rb find_available_rooms looks at each room and runs the room.available method to dive into each reservation for that room
+  to conduct a comparison of dates. It returns an array of available rooms that can be passed as an argument when booking a room.

@@ -20,6 +20,10 @@ class Reservation
     unless discount.instance_of?(Float) && (discount >= 0 && discount <=1)
       raise ArgumentError.new("Discount must be a positive integer (got #{discount}).")
     end
+    
+    unless block_res_taken == true || block_res_taken == false || block_res_taken == nil
+      raise ArgumentError.new("Block_res_taken must be nil (default for reg room) or true/false (for block rooms).")
+    end
   end
   
   def total_cost
