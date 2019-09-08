@@ -4,7 +4,10 @@ require 'date'
 describe "Room" do
   describe "#initialize" do
     before do
-      @id = 2
+      @new_hotel = Hotel.new()
+      @new_hotel.make_reservation(start_date: Date.new(2019-10-3), end_date: Date.new(2019-10-6))
+      @new_hotel.make_reservation(start_date: Date.new(2019-10-7), end_date: Date.new(2019-10-12))
+      @id = 1
       @new_room = Room.new(id: @id)
     end
     
@@ -12,12 +15,17 @@ describe "Room" do
       expect(@new_room).must_be_kind_of Room
     end
     
-    # it "can keep track of reservations" do
-    #   reservation_1 = Reservation.new(id: 34, room: 3, start_date: Date.new(2019-10-3), end_date: Date.new(2019-10-6))
-    #   reservation_2 = Reservation.new(id: 34, room: 4, start_date: Date.new(2019-10-7), end_date: Date.new(2019-10-12))
+    it "stores reservations as an array" do
+      expect(@new_hotel.rooms[0].reservations).must_be_kind_of Array
+    end
     
-    #   expect(@new_room.reservations.length).must_equal 2
-    # end
+    it "holds reservation instances in the array" do
+      expect(@new_hotel.rooms[0].reservations[0]).must_be_kind_of Reservation
+    end
+    
+    it "can keep track of multiple reservations" do
+      expect(@new_hotel.rooms[0].reservations.length).must_equal 2
+    end
     
     it "keeps track of ID" do
       @new_room.must_respond_to :id
@@ -28,6 +36,21 @@ describe "Room" do
       expect { Room.new(id: "Not an integer")
       }.must_raise ArgumentError
     end
+  end
+  
+  describe "add_reservation" do
+    before do
+      @new_hotel = Hotel.new()
+      @new_hotel.make_reservation(start_date: Date.new(2019-10-3), end_date: Date.new(2019-10-6))
+      @new_hotel.make_reservation(start_date: Date.new(2019-10-7), end_date: Date.new(2019-10-12))
+    end
+    
+    it "can add an additional reservation to the reservations instance variable" do
+      @new_hotel.make_reservation(start_date: Date.new(2019-10-13), end_date: Date.new(2019-10-17))
+      
+      expect(@new_hotel.rooms[0].reservations.length).must_equal 3
+    end
+    
   end
   
   describe "available" do

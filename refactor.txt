@@ -3,3 +3,7 @@ Currently, block.rb contains similar functionality that exists in hotel.rb.
   reservation instances.
 - In hotel.rb find_available_rooms looks at each room and runs the room.available method to dive into each reservation for that room
   to conduct a comparison of dates. It returns an array of available rooms that can be passed as an argument when booking a room.
+
+Currently, when utilizing make_reservation in the Hotel class, it will choose the first room with availability for that date range. This 
+could be changed such that the number of reservations each room has incurred is considered. This would spread room utilization more equally 
+among rooms.

@@ -30,11 +30,6 @@ describe "Block" do
     it "returns an array of available rooms in the block" do
       expect(@new_block.rooms_available).must_be_kind_of Array
     end
-    
-    it "raises an exception if there are no rooms available" do
-      #run book_it five times
-    end
-    
   end
   
   describe "book_it" do
@@ -51,6 +46,15 @@ describe "Block" do
     
     it "returns the instance of the booked room" do 
       expect(@new_block.book_it).must_be_kind_of Reservation
+    end
+    
+    it "raises an exception if there are no rooms available" do
+      5.times do |i|
+        @new_block.book_it
+      end
+      
+      expect{ @new_block.book_it
+      }.must_raise ArgumentError
       
     end
   end

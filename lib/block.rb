@@ -9,6 +9,7 @@ class Block
     @reservations = reservations
   end
   
+  # Wave 3: check if a block has rooms available
   def rooms_available
     avail_block_reservations = []
     
@@ -18,13 +19,14 @@ class Block
       end
     end
     
-    if avail_block_reservations == 0
+    if avail_block_reservations.length == 0
       raise ArgumentError.new("All rooms in this block are reserved.")
     end
     
     return avail_block_reservations
   end
   
+  # Wave 3: reserve a room from a block
   def book_it
     unclaimed_reservation = rooms_available
     

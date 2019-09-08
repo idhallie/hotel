@@ -14,13 +14,13 @@ class Hotel
     end
   end
   
+  # Wave 2: View available rooms for a given date range
   def find_available_rooms(start_date:, end_date:)
     unless start_date.instance_of?(Date) && end_date.instance_of?(Date)
       raise ArgumentError.new("Dates must be entered as a date (ex. yyyy, mm, dd. Got start date: #{start_date} and end_date: #{end_date}.")
     end
     
     available_rooms = []
-    # book a room that has no other reservations
     
     rooms.each do |room|
       if room.available(start_date: start_date, end_date: end_date) == true
@@ -35,6 +35,7 @@ class Hotel
     end
   end
   
+  # Wave 1: Reserve a room given a date range
   def make_reservation(start_date:, end_date:)
     avail_rooms = find_available_rooms(start_date: start_date, end_date: end_date)
     reservation_id = reservations.length + 1
@@ -45,6 +46,7 @@ class Hotel
     return new_reservation
   end
   
+  # Wave 3: create a block of rooms
   def make_block(start_date:, end_date:, num_rooms:, discount:)
     block_avail_rooms = find_available_rooms(start_date: start_date, end_date: end_date) 
     
@@ -75,6 +77,7 @@ class Hotel
     return new_block
   end
   
+  # Wave 1: List reservations for a given date
   def reservations_by_date(search_date)
     reservation_list = []
     
@@ -86,6 +89,7 @@ class Hotel
     return reservation_list
   end 
   
+  #  Wave 1: List Rooms
   def room_list
     return rooms
   end

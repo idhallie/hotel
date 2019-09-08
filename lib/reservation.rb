@@ -26,6 +26,7 @@ class Reservation
     end
   end
   
+  # Wave 1: Calculate reservation cost
   def total_cost
     return (date_range.end_date - date_range.start_date) * (200 * (1 - discount))
   end
