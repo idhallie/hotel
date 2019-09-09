@@ -1,9 +1,33 @@
-Currently, block.rb contains similar functionality that exists in hotel.rb. 
-- In block.rb, rooms_available looks within the block and identifies the reservations that have not been claimed and returns an array of 
-  reservation instances.
-- In hotel.rb find_available_rooms looks at each room and runs the room.available method to dive into each reservation for that room
-  to conduct a comparison of dates. It returns an array of available rooms that can be passed as an argument when booking a room.
+### Refactor Opportunity ###
+- Hotel.find_available_rooms reaches through multiple classes in order to return an array of available rooms. Is there a more direct way to do this? It seems like the amount of message chaining could be a liability.
 
-Currently, when utilizing make_reservation in the Hotel class, it will choose the first room with availability for that date range. This 
-could be changed such that the number of reservations each room has incurred is considered. This would spread room utilization more equally 
-among rooms.
+-  make_block has a lot of redundancy to make_reservation. If the requirements of the program could be altered from only having to input a start and end date in order to make a reservation, this redundancy could be reduced. For instance, make_reservation could take optional parameters of num_rooms and discount and based upon the arguments, could create a block (if num_rooms > 1, take steps to make a block).
+
+
+
+
+
+### Summary of Classes ###
+
+HOTEL CLASS holds arrays of rooms, reservations, and blocks. This class contains the following methods:
+* find_available_rooms (returns an array of room instances): takes a start and end date and iterates through the rooms array. Within each instance of room, utilizes Room.available method and cycles through each reservation for that room. For each reservation instance, uses DateRange.date_conflict method to determine whether the dates overlap. 
+
+* make_reservation: Calls find_available_rooms and reserves the first available room in the returned array. Adds the new reservation to the Hotel.reservations array and adds the new reservation to the Room.reservations array.
+
+* make_block: Calls find_available_rooms, verifies that there are enough available rooms for the number in the block, creates the specified number of reservations, adds to reservations array, rooms array, Rooms.reservations array; creates the new block instance with its own array of the newly created reservation instances. 
+
+* reservations_by_date: Outputs a list of reservations for the date specified.
+
+* room_list: Outputs a list of all room instances.
+
+**********
+BLOCK CLASS is a container that holds individual reservations grouped together for the block. Available rooms within a block are identified and can then be booked.
+
+**********
+RESERVATION CLASS holds all pertinent information relevant to individual reservations (id, room, start_date, end_date, discount, date_range, block_res_taken). It contains a method to calculate total cost of that reservation and a method to change the status of a block reservation indicating unavailability.
+
+**********
+ROOM CLASS holds all the reservations specific to that room. The value of the room class is largely in identifying an available room for booking.
+
+**********
+DATERANGE CLASS validates dates and determines whether there are date conflicts in the process of identifying an available room.

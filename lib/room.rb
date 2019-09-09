@@ -2,9 +2,9 @@ require 'date'
 require 'pry'
 
 class Room
-  attr_reader :id, :reservations, :date_range
+  attr_reader :id, :reservations
   
-  def initialize(id:, reservations: [], date_range: [])
+  def initialize(id:, reservations: [])
     @id = id
     @reservations = reservations
     

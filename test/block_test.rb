@@ -18,7 +18,6 @@ describe "Block" do
     
     it "holds reservation instances in the reservations array" do
     end
-    
   end
   
   describe "rooms available" do
@@ -54,8 +53,7 @@ describe "Block" do
       end
       
       expect{ @new_block.book_it
-      }.must_raise ArgumentError
-      
+      }.must_raise ArgumentError  
     end
   end
 end
