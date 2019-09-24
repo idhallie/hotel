@@ -17,13 +17,13 @@ class Room
     reservations << reservation
   end
   
-  def available(start_date:, end_date:)
+  def available(start_date, end_date)
     if reservations.length == 0
       return true
     end
     
     reservations.each do |reservation|
-      if reservation.date_range.date_conflict(comp_start_date: start_date, comp_end_date: end_date) == false
+      if reservation.date_range.date_conflict(start_date, end_date) == false
         return true
       end
     end

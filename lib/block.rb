@@ -20,7 +20,7 @@ class Block
     end
     
     if avail_block_reservations.length == 0
-      raise ArgumentError.new("All rooms in this block are reserved.")
+      raise AvailabilityError.new("All rooms in this block are reserved.")
     end
     
     return avail_block_reservations
@@ -34,4 +34,8 @@ class Block
     
     return unclaimed_reservation.first
   end
+end
+
+
+class AvailabilityError < StandardError
 end

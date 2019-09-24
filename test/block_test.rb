@@ -53,7 +53,7 @@ describe "Block" do
       end
       
       expect{ @new_block.book_it
-      }.must_raise ArgumentError  
+      }.must_raise AvailabilityError
     end
   end
 end

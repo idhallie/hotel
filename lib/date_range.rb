@@ -12,7 +12,7 @@ class DateRange
     end
   end
   
-  def date_conflict(comp_start_date:, comp_end_date:)
+  def date_conflict(comp_start_date, comp_end_date)
     if comp_start_date >= start_date && comp_start_date < end_date || comp_end_date > start_date && comp_end_date < end_date
       return true
     elsif comp_start_date <= start_date && comp_end_date >= end_date

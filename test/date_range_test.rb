@@ -36,43 +36,43 @@ describe "DateRange" do
     end
     
     it "returns true for dates that fall within the range" do
-      expect(@test_date.date_conflict(comp_start_date: Date.new(2019, 10, 3), comp_end_date: Date.new(2019, 10, 5))).must_equal true
+      expect(@test_date.date_conflict(Date.new(2019, 10, 3), Date.new(2019, 10, 5))).must_equal true
     end
     
     it "returns true for the same date range" do
-      expect(@test_date.date_conflict(comp_start_date: Date.new(2019, 10, 2), comp_end_date: Date.new(2019, 10, 6))).must_equal true
+      expect(@test_date.date_conflict(Date.new(2019, 10, 2), Date.new(2019, 10, 6))).must_equal true
     end
     
     it "returns true for a start date that fall within the range and an end date outside the range" do
-      expect(@test_date.date_conflict(comp_start_date: Date.new(2019, 10, 5), comp_end_date: Date.new(2019, 10, 8))).must_equal true
+      expect(@test_date.date_conflict(Date.new(2019, 10, 5), Date.new(2019, 10, 8))).must_equal true
     end
     
     it "returns true for a start date that is before the range and an end date within the range" do
-      expect(@test_date.date_conflict(comp_start_date: Date.new(2019, 10, 1), comp_end_date: Date.new(2019, 10, 3))).must_equal true
+      expect(@test_date.date_conflict(Date.new(2019, 10, 1), Date.new(2019, 10, 3))).must_equal true
     end
     
     it "returns true for dates that fall on either side of the range" do
-      expect(@test_date.date_conflict(comp_start_date: Date.new(2019, 10, 1), comp_end_date: Date.new(2019, 10, 7))).must_equal true
+      expect(@test_date.date_conflict(Date.new(2019, 10, 1), Date.new(2019, 10, 7))).must_equal true
     end
     
     it "returns false for a date ending on the start date" do
-      expect(@test_date.date_conflict(comp_start_date: Date.new(2019, 9, 30), comp_end_date: Date.new(2019, 10, 2))).must_equal false
+      expect(@test_date.date_conflict(Date.new(2019, 9, 30), Date.new(2019, 10, 2))).must_equal false
     end
     
     it "returns false for a date starting on the end date" do
-      expect(@test_date.date_conflict(comp_start_date: Date.new(2019, 10, 6), comp_end_date: Date.new(2019, 10, 10))).must_equal false
+      expect(@test_date.date_conflict(Date.new(2019, 10, 6), Date.new(2019, 10, 10))).must_equal false
     end
     
     it "returns false for a date starting on the end date" do
-      expect(@test_date.date_conflict(comp_start_date: Date.new(2019, 10, 6), comp_end_date: Date.new(2019, 10, 10))).must_equal false
+      expect(@test_date.date_conflict(Date.new(2019, 10, 6), Date.new(2019, 10, 10))).must_equal false
     end
     
     it "returns false for a date starting on the end date" do
-      expect(@test_date.date_conflict(comp_start_date: Date.new(2019, 9, 20), comp_end_date: Date.new(2019, 9, 25))).must_equal false
+      expect(@test_date.date_conflict(Date.new(2019, 9, 20), Date.new(2019, 9, 25))).must_equal false
     end
     
     it "returns false for a date starting on the end date" do
-      expect(@test_date.date_conflict(comp_start_date: Date.new(2019, 10, 10), comp_end_date: Date.new(2019, 10, 15))).must_equal false
+      expect(@test_date.date_conflict(Date.new(2019, 10, 10), Date.new(2019, 10, 15))).must_equal false
     end
   end
 end

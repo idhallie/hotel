@@ -15,7 +15,7 @@ class Hotel
   end
   
   # Wave 2: View available rooms for a given date range
-  def find_available_rooms(start_date:, end_date:)
+  def find_available_rooms(start_date, end_date)
     unless start_date.instance_of?(Date) && end_date.instance_of?(Date)
       raise ArgumentError.new("Dates must be entered as a date (ex. yyyy, mm, dd. Got start date: #{start_date} and end_date: #{end_date}.")
     end
@@ -23,13 +23,13 @@ class Hotel
     available_rooms = []
     
     rooms.each do |room|
-      if room.available(start_date: start_date, end_date: end_date) == true
+      if room.available(start_date, end_date) == true
         available_rooms << room
       end
     end
     
     if available_rooms.length == 0
-      raise ArgumentError.new("There are no available rooms for this date.")
+      raise AvailabilityError.new("There are no available rooms for this date.")
     else
       return available_rooms
     end
@@ -37,7 +37,7 @@ class Hotel
   
   # Wave 1: Reserve a room given a date range
   def make_reservation(start_date:, end_date:)
-    avail_rooms = find_available_rooms(start_date: start_date, end_date: end_date)
+    avail_rooms = find_available_rooms(start_date, end_date)
     reservation_id = reservations.length + 1
     new_reservation = Reservation.new(id: reservation_id, room: avail_rooms.first, start_date: start_date, end_date: end_date)
     reservations << new_reservation
@@ -48,10 +48,10 @@ class Hotel
   
   # Wave 3: create a block of rooms
   def make_block(start_date:, end_date:, num_rooms:, discount:)
-    block_avail_rooms = find_available_rooms(start_date: start_date, end_date: end_date) 
+    block_avail_rooms = find_available_rooms(start_date, end_date) 
     
     if block_avail_rooms.length < num_rooms
-      raise ArgumentError.new("There are not enough rooms available for this block reservation.")
+      raise AvailabilityError.new("There are not enough rooms available for this block reservation.")
     end 
     
     if num_rooms > 5

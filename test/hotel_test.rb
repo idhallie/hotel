@@ -23,7 +23,7 @@ describe "Hotel" do
   describe "find_available_rooms" do
     before do
       @new_hotel = Hotel.new()
-      @search = @new_hotel.find_available_rooms(start_date: Date.new(2019-10-3), end_date: Date.new(2019-10-6))
+      @search = @new_hotel.find_available_rooms(Date.new(2019-10-3), Date.new(2019-10-6))
     end
     
     it "returns an array" do
@@ -31,12 +31,12 @@ describe "Hotel" do
     end
     
     it "raises an error if start_date is not a Date" do
-      expect { @new_hotel.find_available_rooms(start_date: "blerg", end_date: Date.new(2019, 10, 06))
+      expect { @new_hotel.find_available_rooms("blerg", Date.new(2019, 10, 06))
       }.must_raise ArgumentError
     end
     
     it "raises an error if end_date is not a Date" do
-      expect { @new_hotel.find_available_rooms(start_date: Date.new(2019, 10, 03), end_date: "blorb")
+      expect { @new_hotel.find_available_rooms(Date.new(2019, 10, 03), "blorb")
       }.must_raise ArgumentError
     end
     
@@ -44,7 +44,7 @@ describe "Hotel" do
       @new_hotel.make_reservation(start_date: Date.new(2010, 10, 2), end_date: Date.new(2010, 10, 4))
       @new_hotel.make_reservation(start_date: Date.new(2010, 10, 2), end_date: Date.new(2010, 10, 4))
       @new_hotel.make_reservation(start_date: Date.new(2010, 10, 2), end_date: Date.new(2010, 10, 4))
-      search2 = @new_hotel.find_available_rooms(start_date: Date.new(2010, 10, 02), end_date: Date.new(2010, 10, 03))
+      search2 = @new_hotel.find_available_rooms(Date.new(2010, 10, 02), Date.new(2010, 10, 03))
       
       expect(search2.length).must_equal 17
     end
@@ -55,7 +55,7 @@ describe "Hotel" do
       end
       
       expect { @new_hotel.make_reservation(start_date: Date.new(2010, 10, 2), end_date: Date.new(2010, 10, 4))
-      }.must_raise ArgumentError
+      }.must_raise AvailabilityError
     end
   end
   
@@ -154,7 +154,7 @@ describe "Hotel" do
       end
       
       expect { hotel_one.make_block(start_date: Date.new(2019, 10, 2), end_date: Date.new(2019, 10, 4), num_rooms: 5, discount: 0.1)
-      }.must_raise ArgumentError
+      }.must_raise AvailabilityError
     end
     
     it "cannot reserve a room for a specific date that is held for a block" do
@@ -163,7 +163,7 @@ describe "Hotel" do
         block_rooms << reservation.room
       end
       
-      available_rooms = @new_hotel.find_available_rooms(start_date:Date.new(2019, 10, 3), end_date: Date.new(2019, 10, 5))
+      available_rooms = @new_hotel.find_available_rooms(Date.new(2019, 10, 3), Date.new(2019, 10, 5))
       array_comparison = block_rooms.all? { |room| available_rooms.include?(room) }
       
       expect(array_comparison).must_equal false
