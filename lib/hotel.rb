@@ -36,7 +36,7 @@ class Hotel
   end
   
   # Wave 1: Reserve a room given a date range
-  def make_reservation(start_date:, end_date:)
+  def make_reservation(start_date, end_date)
     avail_rooms = find_available_rooms(start_date, end_date)
     reservation_id = reservations.length + 1
     new_reservation = Reservation.new(id: reservation_id, room: avail_rooms.first, start_date: start_date, end_date: end_date)

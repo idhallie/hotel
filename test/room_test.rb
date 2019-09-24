@@ -5,8 +5,8 @@ describe "Room" do
   describe "#initialize" do
     before do
       @new_hotel = Hotel.new()
-      @new_hotel.make_reservation(start_date: Date.new(2019-10-3), end_date: Date.new(2019-10-6))
-      @new_hotel.make_reservation(start_date: Date.new(2019-10-7), end_date: Date.new(2019-10-12))
+      @new_hotel.make_reservation(Date.new(2019-10-3), Date.new(2019-10-6))
+      @new_hotel.make_reservation(Date.new(2019-10-7), Date.new(2019-10-12))
       @id = 1
       @new_room = Room.new(id: @id)
     end
@@ -41,12 +41,12 @@ describe "Room" do
   describe "add_reservation" do
     before do
       @new_hotel = Hotel.new()
-      @new_hotel.make_reservation(start_date: Date.new(2019-10-3), end_date: Date.new(2019-10-6))
-      @new_hotel.make_reservation(start_date: Date.new(2019-10-7), end_date: Date.new(2019-10-12))
+      @new_hotel.make_reservation(Date.new(2019-10-3), Date.new(2019-10-6))
+      @new_hotel.make_reservation(Date.new(2019-10-7), Date.new(2019-10-12))
     end
     
     it "can add an additional reservation to the reservations instance variable" do
-      @new_hotel.make_reservation(start_date: Date.new(2019-10-13), end_date: Date.new(2019-10-17))
+      @new_hotel.make_reservation(Date.new(2019-10-13), Date.new(2019-10-17))
       
       expect(@new_hotel.rooms[0].reservations.length).must_equal 3
     end

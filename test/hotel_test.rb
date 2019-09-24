@@ -30,20 +30,18 @@ describe "Hotel" do
       expect(@search).must_be_kind_of Array
     end
     
-    it "raises an error if start_date is not a Date" do
+    it "raises an error if start_date or end_date is not a date" do
       expect { @new_hotel.find_available_rooms("blerg", Date.new(2019, 10, 06))
       }.must_raise ArgumentError
-    end
-    
-    it "raises an error if end_date is not a Date" do
+      
       expect { @new_hotel.find_available_rooms(Date.new(2019, 10, 03), "blorb")
       }.must_raise ArgumentError
     end
     
     it "returns available rooms" do
-      @new_hotel.make_reservation(start_date: Date.new(2010, 10, 2), end_date: Date.new(2010, 10, 4))
-      @new_hotel.make_reservation(start_date: Date.new(2010, 10, 2), end_date: Date.new(2010, 10, 4))
-      @new_hotel.make_reservation(start_date: Date.new(2010, 10, 2), end_date: Date.new(2010, 10, 4))
+      @new_hotel.make_reservation(Date.new(2010, 10, 2), Date.new(2010, 10, 4))
+      @new_hotel.make_reservation(Date.new(2010, 10, 2), Date.new(2010, 10, 4))
+      @new_hotel.make_reservation(Date.new(2010, 10, 2), Date.new(2010, 10, 4))
       search2 = @new_hotel.find_available_rooms(Date.new(2010, 10, 02), Date.new(2010, 10, 03))
       
       expect(search2.length).must_equal 17
@@ -51,10 +49,10 @@ describe "Hotel" do
     
     it "raises an exception if there are no available rooms on that date" do
       20.times do
-        @new_hotel.make_reservation(start_date: Date.new(2010, 10, 2), end_date: Date.new(2010, 10, 4))
+        @new_hotel.make_reservation(Date.new(2010, 10, 2), Date.new(2010, 10, 4))
       end
       
-      expect { @new_hotel.make_reservation(start_date: Date.new(2010, 10, 2), end_date: Date.new(2010, 10, 4))
+      expect { @new_hotel.make_reservation(Date.new(2010, 10, 2), Date.new(2010, 10, 4))
       }.must_raise AvailabilityError
     end
   end
@@ -64,15 +62,9 @@ describe "Hotel" do
       @new_hotel = Hotel.new()
     end
     
-    it "will display a list of all rooms" do
+    it "will display a list of all rooms (validate length, first and last)" do
       expect(@new_hotel.room_list.length).must_equal 20
-    end
-    
-    it "includes the first room" do
       expect(@new_hotel.room_list.first.id).must_equal 1
-    end
-    
-    it "includes the last room" do
       expect(@new_hotel.room_list.last.id).must_equal 20
     end
   end
@@ -80,7 +72,7 @@ describe "Hotel" do
   describe "make_reservation" do
     before do
       @new_hotel = Hotel.new()
-      @reservation_1 = @new_hotel.make_reservation(start_date: Date.new(2010, 10, 01), end_date: Date.new(2010, 10, 04))
+      @reservation_1 = @new_hotel.make_reservation(Date.new(2010, 10, 01), Date.new(2010, 10, 04))
     end
     
     it "adds new reservation to @reservation instance variable (array)" do
@@ -91,25 +83,22 @@ describe "Hotel" do
       expect(@reservation_1).must_be_kind_of Reservation
     end
     
-    it "raises an error if start_date is not a Date" do
+    it "raises an error if start_date or end_date is not a Date" do
       expect { DateRange.new(start_date: "blerg", end_date: Date.new(2019, 10, 06))
       }.must_raise ArgumentError
-    end
-    
-    it "raises an error if end_date is not a Date" do
+      
       expect { DateRange.new(start_date: Date.new(2019, 10, 03), end_date: "blorb")
       }.must_raise ArgumentError
     end
   end
   
-  
   describe "reservations_by_date" do
     before do
       @new_hotel = Hotel.new()
-      @new_hotel.make_reservation(start_date: Date.new(2019, 10, 01), end_date: Date.new(2019, 10, 04))
-      @new_hotel.make_reservation(start_date: Date.new(2019, 9, 30), end_date: Date.new(2019, 10, 02))
-      @new_hotel.make_reservation(start_date: Date.new(2019, 9, 30), end_date: Date.new(2019, 10, 06))
-      @new_hotel.make_reservation(start_date: Date.new(2019, 10, 02), end_date: Date.new(2019, 10, 05))
+      @new_hotel.make_reservation(Date.new(2019, 10, 01), Date.new(2019, 10, 04))
+      @new_hotel.make_reservation(Date.new(2019, 9, 30), Date.new(2019, 10, 02))
+      @new_hotel.make_reservation(Date.new(2019, 9, 30), Date.new(2019, 10, 06))
+      @new_hotel.make_reservation(Date.new(2019, 10, 02), Date.new(2019, 10, 05))
     end
     
     it "can track the correct number of reservations for a date" do
@@ -150,7 +139,7 @@ describe "Hotel" do
       hotel_one = Hotel.new()
       
       17.times do
-        hotel_one.make_reservation(start_date: Date.new(2019, 10, 2), end_date: Date.new(2019, 10, 4))
+        hotel_one.make_reservation(Date.new(2019, 10, 2), Date.new(2019, 10, 4))
       end
       
       expect { hotel_one.make_block(start_date: Date.new(2019, 10, 2), end_date: Date.new(2019, 10, 4), num_rooms: 5, discount: 0.1)
