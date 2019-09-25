@@ -4,15 +4,15 @@ require 'date'
 describe "Room" do
   describe "#initialize" do
     before do
-      @new_hotel = Hotel.new()
+      @new_hotel = HotelSystem::Hotel.new()
       @new_hotel.make_reservation(Date.new(2019-10-3), Date.new(2019-10-6))
       @new_hotel.make_reservation(Date.new(2019-10-7), Date.new(2019-10-12))
       @id = 1
-      @new_room = Room.new(id: @id)
+      @new_room = HotelSystem::Room.new(id: @id)
     end
     
     it "is an instance of Room" do
-      expect(@new_room).must_be_kind_of Room
+      expect(@new_room).must_be_kind_of HotelSystem::Room
     end
     
     it "stores reservations as an array" do
@@ -20,7 +20,7 @@ describe "Room" do
     end
     
     it "holds reservation instances in the array" do
-      expect(@new_hotel.rooms[0].reservations[0]).must_be_kind_of Reservation
+      expect(@new_hotel.rooms[0].reservations[0]).must_be_kind_of HotelSystem::Reservation
     end
     
     it "can keep track of multiple reservations" do
@@ -33,14 +33,14 @@ describe "Room" do
     end
     
     it "requires an integer ID" do
-      expect { Room.new(id: "Not an integer")
+      expect { HotelSystem::Room.new(id: "Not an integer")
       }.must_raise ArgumentError
     end
   end
   
   describe "add_reservation" do
     before do
-      @new_hotel = Hotel.new()
+      @new_hotel = HotelSystem::Hotel.new()
       @new_hotel.make_reservation(Date.new(2019-10-3), Date.new(2019-10-6))
       @new_hotel.make_reservation(Date.new(2019-10-7), Date.new(2019-10-12))
     end
@@ -50,13 +50,6 @@ describe "Room" do
       
       expect(@new_hotel.rooms[0].reservations.length).must_equal 3
     end
-    
-  end
-  
-  describe "available" do
-    it "returns true if there are no other dates booked" do
-    end
-    
   end
 end
 

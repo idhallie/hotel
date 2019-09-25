@@ -4,12 +4,12 @@ require 'date'
 describe "Block" do
   describe "#initialize" do
     before do
-      @new_hotel = Hotel.new()
+      @new_hotel = HotelSystem::Hotel.new()
       @new_block = @new_hotel.make_block(start_date: Date.new(2019, 10, 3), end_date: Date.new(2019, 10, 5), num_rooms: 5, discount: 0.1)
     end
     
     it "is an instance of Block" do
-      expect(@new_block).must_be_kind_of Block
+      expect(@new_block).must_be_kind_of HotelSystem::Block
     end
     
     it "stores a number of reservations as an array" do
@@ -17,24 +17,18 @@ describe "Block" do
     end
     
     it "holds reservation instances in the reservations array" do
+      expect(@new_block.reservations.first).must_be_kind_of HotelSystem::Reservation
     end
   end
   
-  describe "rooms available" do
+  describe "rooms_available and book_it" do
     before do
-      @new_hotel = Hotel.new()
+      @new_hotel = HotelSystem::Hotel.new()
       @new_block = @new_hotel.make_block(start_date: Date.new(2019, 10, 3), end_date: Date.new(2019, 10, 5), num_rooms: 5, discount: 0.1)
     end
     
     it "returns an array of available rooms in the block" do
       expect(@new_block.rooms_available).must_be_kind_of Array
-    end
-  end
-  
-  describe "book_it" do
-    before do
-      @new_hotel = Hotel.new()
-      @new_block = @new_hotel.make_block(start_date: Date.new(2019, 10, 3), end_date: Date.new(2019, 10, 5), num_rooms: 5, discount: 0.1)
     end
     
     it "can reduce the number of available rooms when one is booked" do 
@@ -44,7 +38,7 @@ describe "Block" do
     end
     
     it "returns the instance of the booked room" do 
-      expect(@new_block.book_it).must_be_kind_of Reservation
+      expect(@new_block.book_it).must_be_kind_of HotelSystem::Reservation
     end
     
     it "raises an exception if there are no rooms available" do
@@ -53,7 +47,7 @@ describe "Block" do
       end
       
       expect{ @new_block.book_it
-      }.must_raise AvailabilityError
+      }.must_raise HotelSystem::AvailabilityError
     end
   end
 end

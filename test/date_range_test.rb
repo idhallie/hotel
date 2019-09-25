@@ -4,11 +4,11 @@ require 'date'
 describe "DateRange" do
   describe "#initialize" do
     before do
-      @new_date = DateRange.new(start_date: Date.new(2019, 10, 02), end_date: Date.new(2019, 10, 06))
+      @new_date = HotelSystem::DateRange.new(start_date: Date.new(2019, 10, 02), end_date: Date.new(2019, 10, 06))
     end
     
     it "is an instance of DateRange" do
-      expect(@new_date).must_be_kind_of DateRange
+      expect(@new_date).must_be_kind_of HotelSystem::DateRange
     end
     
     it "requires that start_date and end_date must be an instance of Date class" do
@@ -17,24 +17,21 @@ describe "DateRange" do
     end
     
     it "raises an error if start_date or end_date is not a Date" do
-      expect { DateRange.new(start_date: "blerg", end_date: Date.new(2019, 10, 06))
+      expect { HotelSystem::DateRange.new(start_date: "blerg", end_date: Date.new(2019, 10, 06))
       }.must_raise ArgumentError
       
-      expect { DateRange.new(start_date: Date.new(2019, 10, 03), end_date: "blorb")
+      expect { HotelSystem::DateRange.new(start_date: Date.new(2019, 10, 03), end_date: "blorb")
       }.must_raise ArgumentError
     end
   end
   
   describe "date_conflict" do
     before do
-      @test_date = DateRange.new(start_date: Date.new(2019, 10, 2), end_date: Date.new(2019, 10, 6))
+      @test_date = HotelSystem::DateRange.new(start_date: Date.new(2019, 10, 2), end_date: Date.new(2019, 10, 6))
     end
     
-    it "returns true for dates that fall within the range" do
+    it "returns true for dates that fall within the range and on the exact same dates" do
       expect(@test_date.date_conflict(Date.new(2019, 10, 3), Date.new(2019, 10, 5))).must_equal true
-    end
-    
-    it "returns true for the same date range" do
       expect(@test_date.date_conflict(Date.new(2019, 10, 2), Date.new(2019, 10, 6))).must_equal true
     end
     

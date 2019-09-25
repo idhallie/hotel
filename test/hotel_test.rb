@@ -4,11 +4,11 @@ require 'date'
 describe "Hotel" do
   describe "#initialize" do
     before do
-      @new_hotel = Hotel.new()
+      @new_hotel = HotelSystem::Hotel.new()
     end
     
     it "is an instance of Hotel" do
-      expect(@new_hotel).must_be_kind_of Hotel
+      expect(@new_hotel).must_be_kind_of HotelSystem::Hotel
     end
     
     it "contains an array of reservations" do
@@ -22,7 +22,7 @@ describe "Hotel" do
   
   describe "find_available_rooms" do
     before do
-      @new_hotel = Hotel.new()
+      @new_hotel = HotelSystem::Hotel.new()
       @search = @new_hotel.find_available_rooms(Date.new(2019-10-3), Date.new(2019-10-6))
     end
     
@@ -53,13 +53,13 @@ describe "Hotel" do
       end
       
       expect { @new_hotel.make_reservation(Date.new(2010, 10, 2), Date.new(2010, 10, 4))
-      }.must_raise AvailabilityError
+      }.must_raise HotelSystem::AvailabilityError
     end
   end
   
   describe "room_list" do
     before do
-      @new_hotel = Hotel.new()
+      @new_hotel = HotelSystem::Hotel.new()
     end
     
     it "will display a list of all rooms (validate length, first and last)" do
@@ -71,7 +71,7 @@ describe "Hotel" do
   
   describe "make_reservation" do
     before do
-      @new_hotel = Hotel.new()
+      @new_hotel = HotelSystem::Hotel.new()
       @reservation_1 = @new_hotel.make_reservation(Date.new(2010, 10, 01), Date.new(2010, 10, 04))
     end
     
@@ -80,21 +80,21 @@ describe "Hotel" do
     end
     
     it "creates an instance of Reservation" do
-      expect(@reservation_1).must_be_kind_of Reservation
+      expect(@reservation_1).must_be_kind_of HotelSystem::Reservation
     end
     
     it "raises an error if start_date or end_date is not a Date" do
-      expect { DateRange.new(start_date: "blerg", end_date: Date.new(2019, 10, 06))
+      expect { HotelSystem::DateRange.new(start_date: "blerg", end_date: Date.new(2019, 10, 06))
       }.must_raise ArgumentError
       
-      expect { DateRange.new(start_date: Date.new(2019, 10, 03), end_date: "blorb")
+      expect { HotelSystem::DateRange.new(start_date: Date.new(2019, 10, 03), end_date: "blorb")
       }.must_raise ArgumentError
     end
   end
   
   describe "reservations_by_date" do
     before do
-      @new_hotel = Hotel.new()
+      @new_hotel = HotelSystem::Hotel.new()
       @new_hotel.make_reservation(Date.new(2019, 10, 01), Date.new(2019, 10, 04))
       @new_hotel.make_reservation(Date.new(2019, 9, 30), Date.new(2019, 10, 02))
       @new_hotel.make_reservation(Date.new(2019, 9, 30), Date.new(2019, 10, 06))
@@ -127,23 +127,23 @@ describe "Hotel" do
   
   describe "make_block" do
     before do
-      @new_hotel = Hotel.new()
+      @new_hotel = HotelSystem::Hotel.new()
       @new_block = @new_hotel.make_block(start_date: Date.new(2019, 10, 3), end_date: Date.new(2019, 10, 5), num_rooms: 5, discount: 0.1)
     end
     
     it "is an instance of Block" do
-      expect(@new_block).must_be_kind_of Block
+      expect(@new_block).must_be_kind_of HotelSystem::Block
     end
     
     it "will raise an exception if one or more rooms is unavailable for the date range." do 
-      hotel_one = Hotel.new()
+      hotel_one = HotelSystem::Hotel.new()
       
       17.times do
         hotel_one.make_reservation(Date.new(2019, 10, 2), Date.new(2019, 10, 4))
       end
       
       expect { hotel_one.make_block(start_date: Date.new(2019, 10, 2), end_date: Date.new(2019, 10, 4), num_rooms: 5, discount: 0.1)
-      }.must_raise AvailabilityError
+      }.must_raise HotelSystem::  AvailabilityError
     end
     
     it "cannot reserve a room for a specific date that is held for a block" do
