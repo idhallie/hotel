@@ -42,6 +42,7 @@ describe "Hotel" do
       @new_hotel.make_reservation(Date.new(2010, 10, 2), Date.new(2010, 10, 4))
       @new_hotel.make_reservation(Date.new(2010, 10, 2), Date.new(2010, 10, 4))
       @new_hotel.make_reservation(Date.new(2010, 10, 2), Date.new(2010, 10, 4))
+      
       search2 = @new_hotel.find_available_rooms(Date.new(2010, 10, 02), Date.new(2010, 10, 03))
       
       expect(search2.length).must_equal 17
@@ -143,7 +144,7 @@ describe "Hotel" do
       end
       
       expect { hotel_one.make_block(start_date: Date.new(2019, 10, 2), end_date: Date.new(2019, 10, 4), num_rooms: 5, discount: 0.1)
-      }.must_raise HotelSystem::  AvailabilityError
+      }.must_raise HotelSystem::AvailabilityError
     end
     
     it "cannot reserve a room for a specific date that is held for a block" do
