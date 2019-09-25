@@ -37,3 +37,13 @@ Implementation B better adheres to the single responsibility principle. It obtai
 **Bonus question once you've read Metz ch. 3: Which implementation is more loosely coupled?**
 
 Implementation B is more loosely coupled. In this Implementation, a total with sales tax can be returned for any object that has a 'price' method. Implementation A, must also have knowledge of each entry's 'unit_price' and 'quantity' which are instance methods and subject to change.
+
+POST-REFACTOR QUESTIONS:
+**How easy is it to follow your own instructions?**
+I was able to understand my instructions, but with new knowledge, I don't agree with my hints at refactoring.
+
+**Do these refactors improve the clarity of your code?**
+I refactored to include a module namespace, a custom AvailabilityError for when there are date conflicts, and to better organize tests. I also eliminated keyword arguments on methods that only take a start_date and end_date. Although I did this based upon what I read in the Sandi Metz book, I tend to agree that it is too much for what I needed an only created extra noise. In that respect, I believe I've improved the clarity of my code. 
+
+**Do you still agree with your previous assessment, or could your refactor be further improved?**
+I didn't actually pursue my own refactoring advice. I thought that the way I implemented the find_available_rooms method in Hotel class may not have been executed properly, but then I learned that my method was actually a good way to do it. My other thought was that I could refactor make_block and make_reservation since some of the code is similar. Upon further inspection, I think a refactor would have come at the sacrifice of clarity and readability, so I kept it as-is.

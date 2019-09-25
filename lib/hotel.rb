@@ -82,7 +82,7 @@ module HotelSystem
       reservation_list = []
       
       reservations.each do |reservation|
-        if search_date >= reservation.date_range.start_date && search_date < reservation.date_range.end_date
+        if search_date >= reservation.start_date && search_date < reservation.end_date
           reservation_list << reservation
         end
       end
